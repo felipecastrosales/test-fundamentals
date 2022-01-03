@@ -15,6 +15,10 @@ class Cart {
     //   total += items[i].price;
     // }
     // return total;
+    if (items.isEmpty) {
+      // throw Exception();
+      throw CartException();
+    }
     return items.fold(0.0, (total, item) => total += item.price);
   }
 
@@ -32,3 +36,5 @@ class Cart {
     return total;
   }
 }
+
+class CartException implements Exception {}

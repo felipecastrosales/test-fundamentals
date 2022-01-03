@@ -126,4 +126,106 @@ void main() {
       );
     },
   );
+
+  group(
+    'Equal test',
+    () {
+      test(
+        'Equal test | 1',
+        () {
+          final iphone = Item(name: 'Iphone', price: 10000);
+          final items = [
+            Item(name: 'Galaxy', price: 1000),
+            iphone,
+            Item(name: 'USB-C', price: 200),
+          ];
+          final cart = Cart(items: items);
+          expect(
+            cart.items,
+            contains(
+              iphone,
+            ),
+          );
+        },
+      );
+
+      test(
+        'Equal test | 2',
+        () {
+          final items = [
+            Item(name: 'Galaxy', price: 1000),
+            Item(name: 'Iphone', price: 10000),
+            Item(name: 'USB-C', price: 200),
+          ];
+          final cart = Cart(items: items);
+          expect(
+            cart.items,
+            contains(
+              Item(name: 'Iphone', price: 10000),
+            ),
+          );
+        },
+      );
+
+      test(
+        'Equal test by type',
+        () {
+          final items = [
+            Item(name: 'Galaxy', price: 1000),
+            Item(name: 'Iphone', price: 10000),
+            Item(name: 'USB-C', price: 200),
+          ];
+          final cart = Cart(items: items);
+          expect(
+            // cart.items.length, 3,
+            cart.items,
+            isA<List<Item>>(),
+          );
+        },
+      );
+
+      test(
+        'Exception test',
+        () {
+          final items = <Item>[];
+          final cart = Cart(items: items);
+          var call = cart.totalCart;
+          expect(
+            () => call(),
+            throwsException,
+          );
+        },
+      );
+
+      test(
+        'Custom Exception test',
+        () {
+          final items = <Item>[];
+          final cart = Cart(items: items);
+          var call = cart.totalCart;
+          expect(
+            () => call(),
+            throwsA(
+              isA<CartException>(),
+            ),
+          );
+        },
+      );
+
+      test(
+        'Custom Exception test 2', // isn't commum
+        () {
+          final items = <Item>[];
+          final cart = Cart(items: items);
+          try {
+            cart.totalCart();
+          } on CartException {
+            print('Success');
+          } catch (e) {
+            fail('Exception returns other exception $e');
+          }
+        },
+      );
+    },
+  );
 }
