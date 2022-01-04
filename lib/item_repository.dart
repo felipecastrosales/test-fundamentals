@@ -2,7 +2,7 @@ import 'item.dart';
 
 abstract class IItemRepository {
   Future<List<Item>> getAllItems();
-  List<Item> getAllItemsSync(int id);
+  List<Item> getAllItemsSync();
   Item getById(int id);
 }
 
@@ -22,7 +22,7 @@ class ItemRepository implements IItemRepository {
   }
 
   @override
-  List<Item> getAllItemsSync(int id) {
+  List<Item> getAllItemsSync() {
     final items = [
       Item(name: 'Galaxy', price: 1000),
       Item(name: 'Iphone', price: 10000),
